@@ -1,0 +1,337 @@
+package com.youdian.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.youdian.model.Back;
+import com.youdian.model.BookInfo;
+import com.youdian.model.BookType;
+import com.youdian.model.Borrow;
+import com.youdian.model.Operator;
+import com.youdian.model.Order;
+import com.youdian.model.OrderAndBookInfo;
+import com.youdian.model.Reader;
+import com.youdian.model.User;
+
+/**
+ * 公共类DAO 用于进行数据库连接和操作
+ * DAO:Data Access Object 数据库访问对象 把对数据库的操作封装起来，方便其他人使用
+ */
+
+public class Dao {
+	/**
+	 * 类属性：
+	 *  dbClassName:数据库驱动器(driver) 
+	 * dbURL:url,统一资源定位符 
+	 * dbUser:数据库用户名
+	 * dbPwd:数据库密码 Connection conn：数据库连接
+	 */
+
+
+	public Dao() {
+		/*
+		 * 在构造器中初始化获得Connection 用一个if判断，是否已经有conn，如果没有则创建
+		 */
+
+	}
+
+	/**
+	 * @return ResultSet: 数据库查询结果
+	 * @param String sql：查询语句 
+	 * 先判断是否有conn
+	 */
+	private static ResultSet executeQuery(String sql) {
+		return  null;
+	}
+
+	/**
+	 * 
+	 * @param sql
+	 * @return int,更新不成功则返回-1，成功则返回Statement stmt.executeQuery的返回值
+	 *  判断conn是否存在
+	 * @exception ： SQLException
+	 */
+	private static int executeUpdate(String sql) {
+		return 1;
+	}
+
+	/**
+	 * 关闭数据库连接Connection
+	 * @exception：SQLException 
+	 * finally 对conn恢复初始值null
+	 */
+	public static void close() {
+
+	}
+
+	/**
+	 * 管理员登录方法
+	 * @param name 登录用户名
+	 * @param password 密码
+	 * @return Operator
+	 * @exception Exception
+	 */
+	public static Operator check(String name, String password) {
+
+		return null;
+
+	}
+
+	/*
+	 * 查询类别方法
+	 */
+	// 图书类别查询
+	public static List selectBookCategory() {
+
+		return null;
+
+	}
+
+	// 图书类别查询
+	public static List selectBookCategory(String bookTypeName) {
+
+		return null;
+
+	}
+
+/**
+ * 图书类别表相关操作
+*/
+	// 给图书类别插入数据
+	public static int InsertBookType(String bookTypeName, int days, String fine) {
+
+		return 1;
+	}
+	//更新图书类别方法，返回executeUpdate的返回值
+	public static int UpdatebookType(String id, String bookTypeName,
+			String days, String fine) {
+		int i=0;
+		/**
+		 * 逻辑代码
+		 */
+		return i;
+	}
+
+	// 图书类别删除方法
+	public static int DelbookType(long id) {
+		int i=0;
+		return i;
+
+	}
+	 public static List selectBookTypeFk(String booktypename) {// 取每种书超过规定时间罚款金额
+
+		 return null;
+		
+		 }
+/**
+* 图书信息表相关操作
+*/
+	
+	//插入图书信息方法
+	public static int Insertbook(String ISBN, int typeId, String bookname,
+			String writer, String translator, String publisher,
+			Date publish_date, String price) {
+
+		return 0;
+	}
+
+	/*
+	 * 查询图书相关信息
+	 */
+	public static List selectBookInfo() {
+		
+		return null;
+	}
+/**
+ * 查询图书信息
+ * @param ISBN
+ * @return List 图书信息
+ */
+		public static List selectBookInfo(String ISBN) {
+				 List list = new ArrayList();
+				 String sql = "select *  from tb_bookInfo where ISBN='" + ISBN + "'";
+				 ResultSet rs = Dao.executeQuery(sql);
+				 try {
+				 while (rs.next()) {
+					 BookInfo bookinfo = new BookInfo();
+					 bookinfo.setISBN(rs.getString("ISBN"));
+					 bookinfo.setTypeId(Integer.parseInt(rs.getString("typeId")));
+					 bookinfo.setBookName(rs.getString("bookname"));
+					 bookinfo.setWriter(rs.getString("writer"));
+					 bookinfo.setTranslator(rs.getString("translator"));
+					 bookinfo.setPublisher(rs.getString("publisher"));
+					 bookinfo.setPublish_date(rs.getDate("publish_date"));
+					 bookinfo.setPrice(rs.getString("price"));
+					 list.add(bookinfo);
+				 }
+	 } catch (Exception e) {
+	 e.printStackTrace();
+	 }
+	 Dao.close();
+	 return list;
+	
+	}
+
+	/**
+	 * 修改图书信息方法
+	 */
+	public static int Updatebook(String ISBN, int typeId, String bookname,
+			String writer, String translator, String publisher,
+			Date publish_date, String price) {
+		
+		return 1;
+	}
+
+	/**
+	 * 对读者信息表执行的相关操作
+	 */
+	// 给tb_reader插入数据
+	public static int InsertReader(String readerName, String gender, int age,
+			String job, String identityCard, Date vipDate, String tel,
+			int maxborrow, String keepMoney, Date bztime, String readercode) {
+		
+		return 1;
+	}
+
+	// 将tb_reader的全部信息查询出来
+	public static List selectReader() {
+		
+		return null;
+	}
+
+	// 通过ISBN查询出tb_reader的数据
+	public static List selectReader(String readerISBN) {
+		
+		return null;
+	}
+
+	// 更新tb_reader表中的数据
+	public static int UpdateReader(String readerName, String gender, int age,
+			String job, String identityCard, Date vipDate, String tel,
+			int maxBorrow, String keepMoney, Date bztime, String readerCode) {
+
+		return 1;
+	}
+
+	// 通过readerCoder删除tb_reader中的数据
+	public static int DelReader(String readerCoder) {
+
+		return 1;
+	}
+
+	/*
+	 * 对图书订购信息表操作
+	 */
+
+	/*
+	 * 输入购书订单
+	 * @return int i :executeUpdate的返回值，表示是否更新成功
+	 *
+	 */
+	public static int InsertBookOrder(String ISBN, Date dgdate, int dgnumber,
+			String operator, int checkAndAccept, String zk) {
+		
+		return 1;
+
+	}
+	//查询购书订单
+	public static List selectBookOrder() {
+		
+		return null;
+	}
+//通过ISBN查询购书订单
+	public static List selectBookOrder(String ISBN) {
+		
+		return null;
+	}
+//更新购书订单
+	public static int UpdateCheckBookOrder(String ISBN) {
+		
+		return 1;
+
+	}
+
+	/*
+	 * 对借阅表进行操作
+	 */
+	// 借阅图书后往数据库插入数据
+	public static int InsertBookBorrow(String bookISBN, String readerISBN,
+			int operatorId, Timestamp borrowDate, Timestamp backDate) {
+		
+		return 1;
+
+	}
+
+	// 查看借阅过的图书
+	public static List selectBorrow(String readerISBN) {
+		
+		return null;
+	}
+
+	/*
+	 * 查询还书内容，tb_bookinfo tb_reader tb_borrow之间的查询
+	 */
+	// 查询还书情况
+	public static List selectBookBack(String readercode) {
+		
+		return null;
+	}
+	// 归还图书操作
+	public static int  UpdateBookBack(String bookISBN, String readerISBN, int id) {
+		
+		return 1;
+
+	}
+//查询图书信息
+	public static List selectbookserch() {
+
+		return null;
+	}
+	//模糊查询
+	public static List selectbookmohu(String bookname) {
+
+		return null;
+
+	}
+	//根据作者模糊查询
+	public static List selectbookmohuwriter(String writer) {
+		return null;
+
+	}
+
+	// 插入用户
+	public static int Insertoperator(String name, String gender, int age,
+			String identityCard, Date workdate, String tel, String password) {
+
+		return 1;
+	}
+
+	// 查询用户
+	public static List selectuser() {
+
+		return null;
+	}
+
+	// 删除用户
+	public static int Deluser(int id) {
+		return 1;
+	}
+
+	// 更新用户
+	public static int Updateuser(int id, String name, String gender, int age,
+			String identityCard, Date workdate, String tel, String password) {
+		
+		return 1;
+	}
+//修改密码
+	public static int Updatepass(String password, String name) {
+	return 1;
+	}
+	//
+}
